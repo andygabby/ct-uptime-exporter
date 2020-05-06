@@ -1,0 +1,17 @@
+//! `cargo run --example blocking`
+#![deny(warnings)]
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    env_logger::init();
+    let url = "https://www.gstatic.com/ct/compliance/uptime.csv";
+    let mut res = reqwest::blocking::get(url)?;
+    
+    println!("Status: {}", res.status());
+    println!("Headers:\n{:?}", res.headers());
+
+    // copy the response body directly to stdout
+    res.copy_to(&mut std::io::stdout())?;
+    println!("{:?}", res.);
+    println!("\n\nDone.");
+    Ok(())
+}
